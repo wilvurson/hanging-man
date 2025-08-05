@@ -103,6 +103,20 @@ letterButtons.forEach((btn) => {
   });
 });
 
+document.addEventListener("keydown", (event) => {
+  const key = event.key.toUpperCase();
+
+
+  if (key.length === 1 && key >= "A" && key <= "Z") {
+    letterButtons.forEach((btn) => {
+      if (btn.textContent === key && !btn.disabled) {
+        btn.click();
+      }
+    });
+  }
+});
+
+
 startBtn.addEventListener("click", pickRandomWord);
 resultPlayBtn.addEventListener("click", pickRandomWord);
 
