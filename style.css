@@ -6,8 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #747474;
-    color: #2e2e2e;
+    background: #292929;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,11 +18,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 20px;
     width: 100%;
     max-width: 800px;
     padding: 20px;
-    background-color: #e4e4e4;
+    background-color: #333333;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -30,6 +30,7 @@ body {
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
+    pointer-events: none;
 }
 
 .box {
@@ -39,6 +40,9 @@ h1 {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
+    background-image: url("./images/hangman-0.svg");
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -49,9 +53,13 @@ h1 {
     align-items: center;
     font-size: 50px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgb(182, 182, 182);
+    border: 5px solid rgb(182, 182, 182);
+    background-color: #454545;
+    padding-bottom: 5px;
+    padding-inline: 20px;
     border-radius: 10px;
-    height: 50px;
+    height: 60px;
+    pointer-events: none;
 }
 
 .keyboard {
@@ -69,7 +77,7 @@ h1 {
     font-size: 24px;
     font-weight: bold;
     color: #ffffff;
-    border: 2px solid black;
+    border: 3px solid rgb(136, 136, 136);
     border-radius: 10px;
     background-color: #636363;
     margin-bottom: 20px;
@@ -78,14 +86,66 @@ h1 {
 }
 
 .letter:hover {
-    border: 2px solid rgb(162, 162, 162);
+    border: 3px solid rgb(255, 255, 255);
     background-color: #454545;
 }
 
 .start_button {
     border-radius: 10px;
-    border: 2px solid rgb(103, 103, 103);
+    border: 3px solid rgb(153, 153, 153);
     height: 50px;
     width: 200px;
     font-size: 30px;
+    transition: 0.2s;
+}
+
+.start_button:hover {
+    background-color: #646464;
+    color: white;
+    border: 3px solid rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.result_screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.9);
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.result_content {
+  text-align: center;
+  background: #222;
+  padding: 30px 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px black;
+}
+
+.result_content h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  pointer-events: none;
+}
+
+.result_content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: lightgreen;
+  border: 3px solid green;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.result_content button:hover {
+  background-color: green;
+  border: 3px solid lightgreen;
+  color: white;
 }
