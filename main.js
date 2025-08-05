@@ -93,7 +93,7 @@ letterButtons.forEach((btn) => {
 
     if (!displayWordElem.textContent.includes("_")) {
       disableAllButtons();
-      showResultScreen("You won.");
+      showResultScreen("Go touch some grass, you won!");
     }
 
     if (guessesLeft === 0) {
