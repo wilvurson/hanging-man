@@ -1,93 +1,77 @@
-const wordList = ["JAVASCRIPT", "PYTHON", "HANGMAN", "MONSTER", "PROGRAM", "VARIABLE", "REACT"]; // you can add more
-const maxAttempts = 6;
-
-let chosenWord = "";
+const words = ["JAVASCRIPT", "PYTHON", "HANGMAN", "COMPUTER", "DEVELOPER"];
+let selectedWord = "";
 let guessedLetters = [];
-let attemptsLeft = maxAttempts;
+let remainingAttempts = 6;
 
 const wordDisplay = document.querySelector(".word_display");
-const message = document.querySelector(".message"); // ✅ FIXED: changed from getElementById
-const attemptsSpan = document.querySelector(".attempts_left");
+const attemptsLeftSpan = document.querySelector(".attempts_left");
+const messageDiv = document.querySelector(".message");
 const letterButtons = document.querySelectorAll(".letter");
 const startButton = document.querySelector(".start_button");
 
-function pickRandomWord() {
-    const randomIndex = Math.floor(Math.random() * wordList.length);
-    return wordList[randomIndex];
-}
-
-function displayWord() {
-    let display = "";
-    for (let letter of chosenWord) {
-        display += guessedLetters.includes(letter) ? letter + " " : "_ ";
-    }
-    wordDisplay.textContent = display.trim();
-}
-
-function updateAttempts() {
-    attemptsSpan.textContent = attemptsLeft;
-}
-
-function disableAllButtons() {
-    letterButtons.forEach(button => {
-        button.disabled = true;
-        button.style.backgroundColor = "#999";
-        button.style.cursor = "default";
+function startGame() {
+    // Pick random word
+    selectedWord = words[Math.floor(Math.random() * words.length)];
+    guessedLetters = [];
+    remainingAttempts = 6;
+    attemptsLeftSpan.textContent = remainingAttempts;
+    messageDiv.textContent = "";
+    
+    // Enable all letters
+    letterButtons.forEach(btn => {
+        btn.disabled = false;
+        btn.style.backgroundColor = "#636363";
     });
+
+    updateWordDisplay();
 }
 
-function showMessage(text, color = "black") {
-    message.textContent = text;
-    message.style.color = color;
-}
+function updateWordDisplay() {
+    const display = selectedWord
+        .split("")
+        .map(letter => (guessedLetters.includes(letter) ? letter : "_"))
+        .join(" ");
+    wordDisplay.textContent = display;
 
-function checkGameStatus() {
-    const currentDisplay = wordDisplay.textContent.replace(/ /g, "");
-    if (currentDisplay === chosenWord) {
-        showMessage("You Won! 🎉", "green");
-        disableAllButtons();
-    } else if (attemptsLeft <= 0) {
-        showMessage(`Game Over! The word was "${chosenWord}" 😢`, "red");
-        disableAllButtons();
+    // Check win condition
+    if (!display.includes("_")) {
+        messageDiv.textContent = "🎉 You Win!";
+        disableAllLetters();
     }
 }
 
-function handleGuess(letter, button) {
-    if (guessedLetters.includes(letter) || attemptsLeft <= 0) return;
+function handleLetterClick(e) {
+    const letter = e.target.textContent;
+
+    if (guessedLetters.includes(letter) || remainingAttempts <= 0) return;
 
     guessedLetters.push(letter);
-    button.disabled = true;
-    button.style.backgroundColor = "#999";
-    button.style.cursor = "default";
+    e.target.disabled = true;
 
-    if (!chosenWord.includes(letter)) {
-        attemptsLeft--;
+    if (!selectedWord.includes(letter)) {
+        remainingAttempts--;
+        attemptsLeftSpan.textContent = remainingAttempts;
+        e.target.style.backgroundColor = "#a00000"; // wrong letter
+
+        if (remainingAttempts === 0) {
+            messageDiv.textContent = `💀 You Lost! Word was: ${selectedWord}`;
+            revealWord();
+            disableAllLetters();
+        }
+    } else {
+        e.target.style.backgroundColor = "#228B22"; // correct letter
+        updateWordDisplay();
     }
-
-    displayWord();
-    updateAttempts();
-    checkGameStatus();
 }
 
-function setupGame() {
-    chosenWord = pickRandomWord();
-    guessedLetters = [];
-    attemptsLeft = maxAttempts;
-    updateAttempts();
-    showMessage("");
-    displayWord();
-
-    letterButtons.forEach(button => {
-        button.disabled = false;
-        button.style.backgroundColor = "#636363";
-        button.style.cursor = "pointer";
-        const letter = button.textContent;
-        button.onclick = () => handleGuess(letter, button);
-    });
+function revealWord() {
+    wordDisplay.textContent = selectedWord.split("").join(" ");
 }
 
-// Start button click listener
-startButton.addEventListener("click", setupGame);
+function disableAllLetters() {
+    letterButtons.forEach(btn => btn.disabled = true);
+}
 
-// Start the game on load
-setupGame();
+// Add event listeners
+startButton.addEventListener("click", startGame);
+letterButtons.forEach(button => button.addEventListener("click", handleLetterClick));
