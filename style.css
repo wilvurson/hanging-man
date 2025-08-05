@@ -51,12 +51,11 @@ h1 {
     margin-top: 20px;
     display: flex;
     align-items: center;
-    font-size: 50px;
+    font-size: 40px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border: 5px solid rgb(182, 182, 182);
     background-color: #454545;
-    padding-bottom: 5px;
-    padding-inline: 20px;
+    padding-inline: 5px;
     border-radius: 10px;
     height: 60px;
     pointer-events: none;
