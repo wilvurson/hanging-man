@@ -81,3 +81,11 @@ h1 {
     border: 2px solid rgb(162, 162, 162);
     background-color: #454545;
 }
+
+.start_button {
+    border-radius: 10px;
+    border: 2px solid rgb(103, 103, 103);
+    height: 50px;
+    width: 200px;
+    font-size: 30px;
+}
