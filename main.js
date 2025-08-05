@@ -6,9 +6,10 @@ let guessedLetters = [];
 let attemptsLeft = maxAttempts;
 
 const wordDisplay = document.querySelector(".word_display");
-const message = document.getElementById("message");
+const message = document.querySelector(".message"); // ✅ FIXED: changed from getElementById
 const attemptsSpan = document.querySelector(".attempts_left");
 const letterButtons = document.querySelectorAll(".letter");
+const startButton = document.querySelector(".start_button");
 
 function pickRandomWord() {
     const randomIndex = Math.floor(Math.random() * wordList.length);
@@ -18,11 +19,7 @@ function pickRandomWord() {
 function displayWord() {
     let display = "";
     for (let letter of chosenWord) {
-        if (guessedLetters.includes(letter)) {
-            display += letter + " ";
-        } else {
-            display += "_ ";
-        }
+        display += guessedLetters.includes(letter) ? letter + " " : "_ ";
     }
     wordDisplay.textContent = display.trim();
 }
@@ -89,5 +86,8 @@ function setupGame() {
     });
 }
 
-// Start the game
+// Start button click listener
+startButton.addEventListener("click", setupGame);
+
+// Start the game on load
 setupGame();
