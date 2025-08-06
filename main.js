@@ -1,8 +1,4 @@
-const words = [
-    "COMPUTER", "PROGRAMMING", "JAVASCRIPT", "PYTHON", "HANGMAN", "DEVELOPER", "ALGORITHM", "FUNCTION", "VARIABLE", "ARRAY",
-    "OBJECT", "LOOP", "CONDITION", "STRING", "NUMBER", "BOOLEAN", "DEBUGGING", "SYNTAX", "COMPILER", "INTERPRETER",
-    "LIBRARY", "FRAMEWORK", "API", "DATABASE", "SERVER", "CLIENT", "HTML", "CSS", "WEB", "APPLICATION",
-];
+const words = ["HELLO", "WORLD", "CSS", "JAVA", "MINECRAFT", "ROBLOX", "ANIME", "TEACHER", "HTML", "LOW", "LOVE", "HERO", "WATER", "FIRE", "SNOW", "LOWER", "LOVER", "THREE", "TREE", "BOX", "BOXER", "WANDERER", "WONDERER", "KILLER", "NECKHURT"];
 
 let word = "";
 let guessed = [];
@@ -25,8 +21,8 @@ function pickRandomWord() {
   letterButtons.forEach((btn) => {
     btn.disabled = false;
     btn.style.backgroundColor = "";
-    btn.style.color = "";           
-    btn.style.borderColor = "";     
+    btn.style.color = "";
+    btn.style.borderColor = "";
   });
 
   displayWord();
@@ -34,7 +30,6 @@ function pickRandomWord() {
   updateHangmanImage();
   hideResultScreen();
 }
-
 
 function displayWord() {
   const display = word
@@ -78,7 +73,7 @@ letterButtons.forEach((btn) => {
       this.disabled = true;
       this.style.backgroundColor = "lightgreen";
       this.style.color = "white";
-        this.style.borderColor = "green";
+      this.style.borderColor = "green";
     } else {
       guessesLeft--;
       updateStatus();
@@ -93,19 +88,18 @@ letterButtons.forEach((btn) => {
 
     if (!displayWordElem.textContent.includes("_")) {
       disableAllButtons();
-      showResultScreen("Go touch some grass, you won!");
+      showResultScreen(`⭐️ ${word} is right!, you won! ⭐️`);
     }
 
     if (guessesLeft === 0) {
       disableAllButtons();
-      showResultScreen(`The word was <> ${word} <> buddy.`);
+      showResultScreen(`❌ The word was ${word} buddy. ❌`);
     }
   });
 });
 
 document.addEventListener("keydown", (event) => {
   const key = event.key.toUpperCase();
-
 
   if (key.length === 1 && key >= "A" && key <= "Z") {
     letterButtons.forEach((btn) => {
@@ -115,7 +109,6 @@ document.addEventListener("keydown", (event) => {
     });
   }
 });
-
 
 startBtn.addEventListener("click", pickRandomWord);
 resultPlayBtn.addEventListener("click", pickRandomWord);
